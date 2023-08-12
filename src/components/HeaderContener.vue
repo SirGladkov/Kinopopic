@@ -32,10 +32,13 @@ name: 'HeaderContener'
   <style>
   .HeaderContener{
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: start;
   padding: 56px 92px;
   gap:30px;
+  background: url("../assets/MainPoster.jpg") no-repeat;
+  background-size: 100%;
+  height: 940px;
 }
  .HeaderLogo{
   width: 150px;

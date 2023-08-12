@@ -1,7 +1,9 @@
 <template>
     <div class="movie-poster">
+      <div class="number">{{ number }}</div>
       <img :src="movie.posterUrl" :alt="movie.title" />
       <h3>{{ movie.title }}</h3>
+      
     </div>
   </template>
   

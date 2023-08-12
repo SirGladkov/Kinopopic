@@ -2,7 +2,11 @@
   <div>
     <HeaderContener/>
     <div>
-      <movie-category v-for="(movies, category) in moviesByCategory" :key="category" :category="category" :movies="movies" />
+      <movie-category v-for="(movies, category) in this.FILMS" 
+      :key="category" 
+      :category="category" 
+      :movies="movies" 
+      />
     </div>
 
 
@@ -12,38 +16,56 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import HeaderContener from './components/HeaderContener.vue';
 import MovieCategory from './components/MovieCategory.vue';
+import getTopFilms from './api/IMDb.js';
+import {mapActions, mapGetters} from 'vuex'
 export default {
   components: {
     HeaderContener,
     MovieCategory,
 
   },
+  props:{},
   data() {
     return {
       moviesByCategory: {
-        'Action': [
-          { id: 1, title: 'Фильм 1', posterUrl: '../assets/1.jpg' },
-          { id: 2, title: 'Фильм 2', posterUrl: '../assets/1.jpg' },
+        Actions: [
+          { id: 3, title: 'Фильм 3', posterUrl: require ('./assets/1.jpg') },
+          { id: 4, title: 'Фильм 4', posterUrl: require ('./assets/1.jpg') },
           // Добавить другие фильмы
         ],
-        'Drama': [
-          { id: 3, title: 'Фильм 3', posterUrl: '../assets/1.jpg' },
-          { id: 4, title: 'Фильм 4', posterUrl: '../assets/1.jpg' },
+        Drams: [
+          { id: 5, title: 'Фильм 5', posterUrl: require ('./assets/1.jpg') },
+          { id: 6, title: 'Фильм 6', posterUrl: require ('./assets/1.jpg') },
           // Добавить другие фильмы
         ],
+        Top100:[
+          {}
+
+        ]
         // Добавить другие категории
        },
       };
-    },
 
+    },
+    computed:{
+      ...mapGetters([
+        'FILMS'
+      ]),
+    },
+    methods:{
+      ...mapActions([
+          'getTopFilms'
+      ]),
+    },
+    mounted(){
+      this.getTopFilms()
+    },
   name: 'App',
- 
 }
   
-
+getTopFilms()
 
 </script>
 
@@ -59,7 +81,7 @@ body{
   color: none;
   /* margin-top: 60px; */
   background-color:#111111;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 </style>

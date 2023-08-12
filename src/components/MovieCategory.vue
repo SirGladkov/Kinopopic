@@ -8,7 +8,7 @@
   </template>
   
   <script>
-  import MoviePoster from './MoviePoster.vue'; // Убедитесь, что путь к компоненту правильный
+  import MoviePoster from './MoviePoster.vue'; 
   
   export default {
     components: {
@@ -31,6 +31,8 @@
   
   .movie-category {
     margin-bottom: 20px;
+    padding-left: 6%;
+    
   }
   
   .movie-category h2 {
@@ -52,6 +54,7 @@
 .movie-poster {
   text-align: center;
   margin-right: 20px; /* Добавляем небольшой отступ между постерами */
+  
 }
 
 .movie-poster:last-child {
@@ -61,9 +64,11 @@
 .movie-poster img {
   width: 150px;
   height: 200px;
+  border-radius: 12px;
 }
 
 .movie-poster h3 {
   margin-top: 10px;
 }
+
   </style>
