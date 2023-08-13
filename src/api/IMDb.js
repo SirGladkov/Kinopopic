@@ -1,13 +1,12 @@
-import axios from 'axios'
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-import {createStore} from 'vuex';
+import {createStore} from "vuex";
+import axios from "axios";
 
-// Vue.use(Vuex);
 
-const getTopFilms = createStore({
-    state:{
-        films:[]
+export const store = createStore({
+    state(){
+        return {
+            films:[],
+        }
     },
     mutations:{
         SET_FILMS_TO_STATE:(state, films) => {
@@ -16,13 +15,8 @@ const getTopFilms = createStore({
     },
     actions:{
         GET_FILMS_FROM_API({commit}){
-            return axios('https://imdb-top-100-movies.p.rapidapi.com/',{
-                method: "GET"
-            }) 
-            .then((films) =>{
-                commit('SET_FILMS_TO_STATE',films);
-                return films;
-            }) 
+            return axios.get( "https://imdb-top-100-movies.p.rapidapi.com/", {headers:{'X-RapidAPI-Key': '6c9f943d3fmsh643d5c2da4fc533p104afejsn59007ba15467', 'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'}})
+            .then((res) => commit('SET_FILMS_TO_STATE',res.data))
             .catch((error) => {
                 console.log(error)
                 return error;
@@ -30,7 +24,7 @@ const getTopFilms = createStore({
         }
     },
     getters:{
-        FILMS(state){
+        films(state){
             return state.films;
         }
     },
@@ -40,6 +34,5 @@ const getTopFilms = createStore({
 
 
 // const getTopFilms = () => axios.get( "https://imdb-top-100-movies.p.rapidapi.com/", {headers:{'X-RapidAPI-Key': '6c9f943d3fmsh643d5c2da4fc533p104afejsn59007ba15467',
-// 'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'}}).then((res) => res.data ); 
+// 'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'}}).then((res) => res.data );
 
-export default getTopFilms

@@ -1,14 +1,14 @@
 <template>
   <div>
     <HeaderContener/>
-    <div>
-      <movie-category v-for="(movies, category) in this.FILMS" 
-      :key="category" 
-      :category="category" 
-      :movies="movies" 
-      />
+    <div class="movies-wrapper">
+<!--      <movie-category v-for="(movies, category) in this.FILMS" -->
+<!--      :key="category" -->
+<!--      :category="category" -->
+<!--      :movies="movies" -->
+<!--      />-->
+    <movie-list v-for="film in this.$store.state.films" :film="film" :key="film.id"/>
     </div>
-
 
 
   </div>
@@ -17,13 +17,12 @@
 
 <script>
 import HeaderContener from './components/HeaderContener.vue';
-import MovieCategory from './components/MovieCategory.vue';
-import getTopFilms from './api/IMDb.js';
-import {mapActions, mapGetters} from 'vuex'
+import MovieList from "@/components/MovieList.vue";
+import {mapActions} from "vuex";
 export default {
   components: {
+    MovieList,
     HeaderContener,
-    MovieCategory,
 
   },
   props:{},
@@ -50,28 +49,36 @@ export default {
 
     },
     computed:{
-      ...mapGetters([
-        'FILMS'
-      ]),
+      // FILMS () {
+      //   return this.$store
+      // }
     },
     methods:{
       ...mapActions([
           'getTopFilms'
       ]),
     },
+    updated() {
+      console.log(this.$store)
+    },
     mounted(){
-      this.getTopFilms()
+     this.$store.dispatch('GET_FILMS_FROM_API');
     },
   name: 'App',
 }
   
-getTopFilms()
 
 </script>
 
 <style>
 body{
   margin: 0;
+}
+.movies-wrapper{
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  column-gap: 14px;
+  row-gap: 50px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
